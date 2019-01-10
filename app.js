@@ -14,6 +14,29 @@ app.get("/hello", function(req, res) {
   res.send("hello");
 });
 
+app.get("/random/:min/:max", (req,res)=>{
+  // conversion en int
+  var min = parseInt(req.params.min);
+  var max = parseInt(req.params.max);
+
+  // If not int
+  if (isNaN(min) || isNaN(max))
+  {
+    res.status(400);
+    res.json({error : 'Bad request'});
+  }
+  else
+  {
+    var result = Math.floor(Math.random()* (max - min)) + min;
+    res.json({results : result});
+  }
+
+
+})
+
+
+
+
 // favicon https://stackoverflow.com/questions/15463199/how-to-set-custom-favicon-in-express
  //const fs = require('fs'); 
  //const favicon = fs.readFileSync(__dirname+'/public/favicon.ico'); // read file
